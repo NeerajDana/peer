@@ -25,4 +25,4 @@ process.on('uncaughtException' , function(exc){
     console.error(exc);
 })
 
-server.listen(port)
+server.listen(port);
