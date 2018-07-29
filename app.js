@@ -1,28 +1,29 @@
-var express  = requrie('express')
-var path = require('path')
-var http = require('http')
-var errorhandler = require('errorhandler')
-var cors = require('cors')
-var ExpressPeerServer = require('peer').ExpressPeerServer
+var express = require('express');
+var path = require('path');
+var http = require('http');
+var cors = require('cors');
+var errorhandler = require('errorhandler');
+var ExpressPeerServer = require('peer').ExpressPeerServer;
 
-var option = {
-    debug : true ,
-    key: 'codeshow'
-}
-var app = express()
+var options = {
+  debug: true,
+  key: 'codeshow'
+};
+
+var app = express();
 var server = http.createServer(app);
 
 var port = process.env.PORT || '3000';
 
-app.set('port' , port)
+app.set('port', port);
 
 app.use(cors());
-app.use(express.static(path.join(__dirname , 'public')));
-app.use('/peerjs' , ExpressPeerServer(server , option));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/peerjs', ExpressPeerServer(server, options));
 app.use(errorhandler());
 
-process.on('uncaughtException' , function(exc){
-    console.error(exc);
-})
+process.on('uncaughtException', function (exc) {
+  console.error(exc);
+});
 
 server.listen(port);
